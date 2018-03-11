@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "rat.h": "c",
+        "algorithm": "cpp",
+        "cassert": "cpp",
+        "__config": "cpp",
+        "__nullptr": "cpp",
+        "exception": "cpp",
+        "initializer_list": "cpp",
+        "new": "cpp",
+        "stdexcept": "cpp",
+        "typeinfo": "cpp",
+        "ratio": "cpp",
+        "iosfwd": "cpp"
+    },
+    "C_Cpp.intelliSenseEngineFallback": "Disabled"
+}
