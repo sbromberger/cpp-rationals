@@ -1,18 +1,19 @@
 #include <iostream>
 #include <string>
 
-class Rational {
-    int num, den, gcd;
+const class Rational {
+    const int num, den, gcd;
 
     int calc_gcd(int, int);
     friend std::ostream &operator<<(std::ostream &os, Rational const &r);
 
   public:
+    Rational(int n, int d, int g) : num(n), den(d), gcd(g){};
     Rational(int, int);
-    Rational(int);
+    Rational(int n): Rational(n, 1, 1) {};
     std::string string();
     Rational operator+(Rational);
-    Rational operator-();
+    Rational operator-() { return {-num, den}; };
     Rational operator-(Rational);
     Rational operator*(Rational);
     Rational operator/(Rational);
@@ -29,27 +30,18 @@ int Rational::calc_gcd(int n, int d) {
 }
 
 Rational::Rational(int n, int d) {
-    if (d == 0)
-    {
+    if (d == 0) {
         std::cerr << "Division by zero error." << std::endl;
         abort();
-          }
-          auto g = abs(calc_gcd(n, d));
-          if (d < 0)
-          {
-              n = -n;
-              d = -d;
-          }
-          num = n / g;
-          den = d / g;
-          gcd = g;
-        }
-
-Rational::Rational(int n) {
-    num = n;
-    den = 1;
-    gcd = 1;
+    }
+    auto g = abs(calc_gcd(n, d));
+    if (d < 0) {
+        n = -n;
+        d = -d;
+    }
+    Rational(n / g, d / g, g);
 }
+
 
 std::string Rational::string() {
     return "num = " + std::to_string(num) + ", den = " + std::to_string(den) + ", gcd = " + std::to_string(gcd);
@@ -64,10 +56,6 @@ Rational Rational::operator+(Rational r) {
     auto n1 = num * r.den;
     auto n2 = r.num * den;
     return Rational(n1 + n2, m);
-}
-
-Rational Rational::operator-() {
-    return Rational(-num, den);
 }
 
 Rational Rational::operator-(Rational r) {
