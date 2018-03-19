@@ -25,51 +25,50 @@ class Rational {
     bool operator>=(Rational r) const { return !(*this < r); };
 };
 
-Rational::Rational(int n, int d):gcd{std::gcd(n, d)}, num{n / gcd}, den{d / gcd}{
+inline Rational::Rational(int n, int d):gcd{std::gcd(n, d)}, num{n / gcd}, den{d / gcd}{
     if (d == 0) {
         std::cerr << "Division by zero error." << std::endl;
         throw std::runtime_error("Division by zero error!");
     }
 }
 
-std::string Rational::string() const {
+inline std::string Rational::string() const {
     return "num = " + std::to_string(num) + ", den = " + std::to_string(den) + ", gcd = " + std::to_string(gcd);
 }
 
-std::ostream &operator<<(std::ostream &os, Rational const &r) {
+inline std::ostream &operator<<(std::ostream &os, Rational const &r) {
     return os << r.num << "//" << r.den;
 }
 
-Rational Rational::operator+(Rational r) const {
+inline Rational Rational::operator+(Rational r) const {
     auto m = den * r.den;
     auto n1 = num * r.den;
     auto n2 = r.num * den;
     return Rational(n1 + n2, m);
 }
 
-Rational Rational::operator-(Rational r) const {
+inline Rational Rational::operator-(Rational r) const {
     return *this + -r;
 }
 
-Rational Rational::operator*(Rational r) const {
+inline Rational Rational::operator*(Rational r) const {
     return Rational(num * r.num, den * r.den);
 }
 
-Rational Rational::operator/(Rational r) const {
+inline Rational Rational::operator/(Rational r) const {
     return Rational(num * r.den, den * r.num);
 }
 
-bool Rational::operator==(Rational r) const {
+inline bool Rational::operator==(Rational r) const {
     return (num == r.num) && (den == r.den);
 }
 
-
-bool Rational::operator<(Rational r) const {
+inline bool Rational::operator<(Rational r) const {
     auto n = *this - r;
     return n.num < 0;
 }
 
-bool Rational::operator>(Rational r) const {
+inline bool Rational::operator>(Rational r) const {
     auto n = *this - r;
     return n.num > 0;
 }
