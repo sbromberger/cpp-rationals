@@ -21,5 +21,9 @@ int main() {
   std::cout << "Rational lt" << std::endl;
   std::cout << (Rational(2, 3) < Rational(6, 7)) << std::endl;
   std::cout << (Rational(2, 3) < Rational(1, 7)) << std::endl;
+  std::cout << "Rational *=" << std::endl;
+  std::cout << r1 << " * " << r2 << " = " << r1 * r2 << std::endl;
+  r1 *= r2;
+  std::cout << "r1 now = " << r1 << std::endl;
   return (0);
 }

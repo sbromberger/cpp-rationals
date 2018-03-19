@@ -11,19 +11,31 @@ class Rational {
   Rational(int n, int d, int g) : gcd{g}, num{n}, den{d} {};
   Rational(int, int);
   Rational(int n) : Rational(1, n, 1){};
+  Rational() : Rational(1, 0, 1){};
   std::string string() const;
-  Rational operator+(Rational) const;
-  Rational operator-() const { return {-num, den}; };
-  Rational operator-(Rational) const;
-  Rational operator*(Rational) const;
-  Rational operator/(Rational) const;
-  bool operator==(Rational) const;
-  bool operator<(Rational) const;
-  bool operator>(Rational) const;
-  bool operator!=(Rational r) const { return !(*this == r); };
-  bool operator<=(Rational r) const { return !(*this > r); };
-  bool operator>=(Rational r) const { return !(*this < r); };
+  auto operator+(Rational const &) const -> Rational;
+  auto operator-() const -> Rational { return {-num, den}; };
+  auto operator-(Rational const &) const -> Rational;
+  auto operator*(Rational const &) const -> Rational;
+  auto operator/(Rational const &) const -> Rational;
+  auto operator*=(Rational const &) -> Rational;
+  // Rational &operator-=(Rational);
+  auto operator==(Rational const &) const -> bool;
+  auto operator<(Rational const &) const -> bool;
+  auto operator>(Rational const &) const -> bool;
+  auto operator!=(Rational const &r) const -> bool { return !(*this == r);};
+  auto operator<=(Rational const &r) const -> bool { return !(*this > r); };
+  auto operator>=(Rational const &r) const -> bool { return !(*this < r); };
 };
+
+inline auto Rational::operator*=(Rational const &r) -> Rational { 
+  num *= r.num;
+  den *= r.den;
+  gcd = std::gcd(num, den);
+  num /= gcd;
+  den /= gcd;
+  return *this;
+}
 
 inline Rational::Rational(int n, int d) {
   if (d == 0) throw std::runtime_error("division by zero");
@@ -32,7 +44,7 @@ inline Rational::Rational(int n, int d) {
   den = d / gcd;
 }
 
-inline std::string Rational::string() const {
+inline auto Rational::string() const -> std::string {
   return "num = " + std::to_string(num) + ", den = " + std::to_string(den) +
          ", gcd = " + std::to_string(gcd);
 }
@@ -41,33 +53,33 @@ inline std::ostream &operator<<(std::ostream &os, Rational const &r) {
   return os << r.num << "//" << r.den;
 }
 
-inline Rational Rational::operator+(Rational r) const {
+inline auto Rational::operator+(Rational const &r) const -> Rational {
   auto m = den * r.den;
   auto n1 = num * r.den;
   auto n2 = r.num * den;
   return Rational(n1 + n2, m);
 }
 
-inline Rational Rational::operator-(Rational r) const { return *this + -r; }
+inline auto Rational::operator-(Rational const &r) const -> Rational { return *this + -r; }
 
-inline Rational Rational::operator*(Rational r) const {
+inline auto Rational::operator*(Rational const &r) const -> Rational {
   return Rational(num * r.num, den * r.den);
 }
 
-inline Rational Rational::operator/(Rational r) const {
+inline auto Rational::operator/(Rational const &r) const -> Rational {
   return Rational(num * r.den, den * r.num);
 }
 
-inline bool Rational::operator==(Rational r) const {
+inline auto Rational::operator==( Rational const &r) const -> bool {
   return (num == r.num) && (den == r.den);
 }
 
-inline bool Rational::operator<(Rational r) const {
+inline auto Rational::operator<(Rational const &r) const -> bool {
   auto n = *this - r;
   return n.num < 0;
 }
 
-inline bool Rational::operator>(Rational r) const {
+inline auto Rational::operator>(Rational const &r) const -> bool {
   auto n = *this - r;
   return n.num > 0;
 }

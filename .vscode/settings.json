@@ -11,7 +11,8 @@
         "stdexcept": "cpp",
         "typeinfo": "cpp",
         "ratio": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "numeric": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Disabled"
 }
