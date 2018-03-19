@@ -17,12 +17,18 @@ class Rational {
     Rational operator-(Rational) const;
     Rational operator*(Rational) const;
     Rational operator/(Rational) const;
+    bool operator==(Rational) const;
+    bool operator<(Rational) const;
+    bool operator>(Rational) const;
+    bool operator!=(Rational r) const { return !(*this == r); };
+    bool operator<=(Rational r) const { return !(*this > r); };
+    bool operator>=(Rational r) const { return !(*this < r); };
 };
 
 Rational::Rational(int n, int d):gcd{std::gcd(n, d)}, num{n / gcd}, den{d / gcd}{
     if (d == 0) {
         std::cerr << "Division by zero error." << std::endl;
-        abort();
+        throw std::runtime_error("Division by zero error!");
     }
 }
 
@@ -51,4 +57,19 @@ Rational Rational::operator*(Rational r) const {
 
 Rational Rational::operator/(Rational r) const {
     return Rational(num * r.den, den * r.num);
+}
+
+bool Rational::operator==(Rational r) const {
+    return (num == r.num) && (den == r.den);
+}
+
+
+bool Rational::operator<(Rational r) const {
+    auto n = *this - r;
+    return n.num < 0;
+}
+
+bool Rational::operator>(Rational r) const {
+    auto n = *this - r;
+    return n.num > 0;
 }

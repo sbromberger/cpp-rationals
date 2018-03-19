@@ -14,5 +14,11 @@ int main() {
     std::cout << r5 << ": " << r5.string() << std::endl;
     std::cout << (r6 * r2) << ": " << (r6 * r2).string() << std::endl;
     std::cout << (r6 / r2) << ": " << (r6 / r2).string() << std::endl;
+    std::cout << "Rational equals" << std::endl;
+    std::cout << (r1 == Rational(8, 12)) << std::endl;
+    std::cout << (Rational(2, 3).string()) << " and " << (Rational(4, 6).string()) << std::endl;
+    std::cout << "Rational lt" << std::endl;
+    std::cout << (Rational(2, 3) < Rational(6, 7)) << std::endl;
+    std::cout << (Rational(2, 3) < Rational(1, 7)) << std::endl;
     return (0);
 }
