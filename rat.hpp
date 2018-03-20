@@ -8,9 +8,9 @@ class Rational {
   friend std::ostream &operator<<(std::ostream &os, Rational const &r);
 
  public:
-  Rational(int, int);
-  Rational(int n) : Rational(n, 1){};
-  Rational() : Rational(0, 1){};
+  Rational(int n = 0, int d = 1);
+  auto to_double() const -> double;
+  auto floor() const -> int;
   // these consts are here because we want to specify that
   // we are not mutating any field.
   auto string() const -> std::string;
@@ -44,6 +44,12 @@ inline auto Rational::operator*=(Rational const &r) -> Rational {
   denominator /= gcd;
   return *this;
 }
+
+inline auto Rational::to_double() const -> double {
+  return static_cast<double>(numerator) / denominator;
+}
+
+inline auto Rational::floor() const -> int { return numerator / denominator; }
 
 inline auto Rational::operator/=(Rational const &r) -> Rational {
   numerator *= r.denominator;

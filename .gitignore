@@ -1,3 +1,6 @@
+.gitignore
 .vscode
 rat
 rat-debug
+test
+test.cpp

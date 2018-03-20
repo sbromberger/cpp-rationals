@@ -33,5 +33,10 @@ int main() {
   std::cout << "r2  = " << r2 << std::endl;
   r6 /= r2;
   std::cout << "r6 now = " << r6 << std::endl;
+  Rational r8 = 6;
+  std::cout << "r8 dump: " << r8.string() << std::endl;
+
+  std::cout << "2//3 to_double: " << Rational(2, 3).to_double() << std::endl;
+  std::cout << "4//3 floor: " << Rational(4, 3).floor() << std::endl;
   return (0);
 }
