@@ -9,29 +9,31 @@ class Rational {
 
  public:
   Rational(int, int);
-  Rational(int n) : Rational(n, 1) {};
-  Rational() : Rational(0, 1) {};
+  Rational(int n) : Rational(n, 1){};
+  Rational() : Rational(0, 1){};
   // these consts are here because we want to specify that
   // we are not mutating any field.
   auto string() const -> std::string;
   // we use Rational const & here because it's better to pass
   // a reference than a copy of the object.
   auto operator+(Rational const &) const -> Rational;
-  auto operator-() const -> Rational { return Rational(-numerator, denominator); };
+  auto operator-() const -> Rational {
+    return Rational(-numerator, denominator);
+  };
   auto operator-(Rational const &) const -> Rational;
-  auto operator*(Rational const &) const -> Rational;
+  auto operator*(Rational const &)const -> Rational;
   auto operator/(Rational const &) const -> Rational;
   // we don't use consts to mark the function here because
   // it mutates the operand.
-  auto operator*=(Rational const &)->Rational;
-  auto operator/=(Rational const &)->Rational;
+  auto operator*=(Rational const &) -> Rational;
+  auto operator/=(Rational const &) -> Rational;
   // Rational &operator-=(Rational);
-  auto operator==(Rational const &) const->bool;
-  auto operator<(Rational const &) const->bool;
-  auto operator>(Rational const &) const->bool;
-  auto operator!=(Rational const &r) const->bool { return !(*this == r); };
-  auto operator<=(Rational const &r) const->bool { return !(*this > r); };
-  auto operator>=(Rational const &r) const->bool { return !(*this < r); };
+  auto operator==(Rational const &) const -> bool;
+  auto operator<(Rational const &) const -> bool;
+  auto operator>(Rational const &) const -> bool;
+  auto operator!=(Rational const &r) const -> bool { return !(*this == r); };
+  auto operator<=(Rational const &r) const -> bool { return !(*this > r); };
+  auto operator>=(Rational const &r) const -> bool { return !(*this < r); };
 };
 
 inline auto Rational::operator*=(Rational const &r) -> Rational {
@@ -52,7 +54,6 @@ inline auto Rational::operator/=(Rational const &r) -> Rational {
   return *this;
 }
 
-
 inline Rational::Rational(int n, int d) {
   if (d == 0) throw std::runtime_error("division by zero");
   gcd = std::gcd(n, d);
@@ -61,7 +62,8 @@ inline Rational::Rational(int n, int d) {
 }
 
 inline auto Rational::string() const -> std::string {
-  return "num = " + std::to_string(numerator) + ", denominator = " + std::to_string(denominator) +
+  return "num = " + std::to_string(numerator) +
+         ", denominator = " + std::to_string(denominator) +
          ", gcd = " + std::to_string(gcd);
 }
 
@@ -76,7 +78,9 @@ inline auto Rational::operator+(Rational const &r) const -> Rational {
   return Rational(n1 + n2, m);
 }
 
-inline auto Rational::operator-(Rational const &r) const -> Rational { return *this + -r; }
+inline auto Rational::operator-(Rational const &r) const -> Rational {
+  return *this + -r;
+}
 
 inline auto Rational::operator*(Rational const &r) const -> Rational {
   return Rational(numerator * r.numerator, denominator * r.denominator);
@@ -86,7 +90,7 @@ inline auto Rational::operator/(Rational const &r) const -> Rational {
   return Rational(numerator * r.denominator, denominator * r.numerator);
 }
 
-inline auto Rational::operator==( Rational const &r) const -> bool {
+inline auto Rational::operator==(Rational const &r) const -> bool {
   return (numerator == r.numerator) && (denominator == r.denominator);
 }
 
